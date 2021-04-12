@@ -1,0 +1,1079 @@
+package mtasa.server;
+
+import haxe.extern.EitherType;
+import lua.Table;
+import mtasa.server.classes.ACL;
+import mtasa.server.classes.ACLGroup;
+import mtasa.server.classes.Account;
+import mtasa.server.classes.Ban;
+import mtasa.server.classes.Element;
+import mtasa.server.classes.Player;
+
+@:native('_G')
+extern class Functions {
+	/**
+		This function adds an account to the list of registered accounts of the current server.
+
+		@param name The name of the account you wish to make, this normally is the player's name.
+		@param pass The password to set for this account for future logins.
+		@param allowCaseVariations Whether the username is case sensitive (if this is set to true, usernames "Bob" and "bob" will refer to different accounts)
+	**/
+	static function addAccount(name:String, pass:String, ?allowCaseVariations:Bool = false):Account;
+
+	/**
+		This function copies all of the data from one account to another.
+
+		@param theAccount The account you wish to copy the data to.
+		@param fromAccount The account you wish to copy the data from.
+	**/
+	static function copyAccountData(theAccount:Account, fromAccount:Account):Bool;
+
+	/**
+		This function returns an account for a specific user.
+
+		@param username The username of the account you want to retrieve
+	**/
+	static function getAccount(username:String, ?password:String, ?caseSensitive:Bool = true):Account;
+
+	/**
+		This function retrieves a string that has been stored using setAccountData. 
+		Data stored as account data is persistent across user's sessions and maps, unless they are logged into a guest account.
+
+		@param theAccount The account you wish to retrieve the data from.
+		@param key The key under which the data is stored
+	**/
+	static function getAccountData(theAccount:Account, key:String):String;
+
+	/**
+		This function retrieves the name of an account.
+
+		@param theAccount The account you wish to get the name of.
+	**/
+	static function getAccountName(theAccount:Account):String;
+
+	/**
+		This function returns the player element that is currently using a specified account, i.e. is logged into it. Only one player can use an account at a time.
+
+		@param theAccount The account you wish to get the player of.
+	**/
+	static function getAccountPlayer(theAccount:Account):Player;
+
+	/**
+		This function returns the last serial that logged onto the specified account.
+
+		@param theAccount The account to get serial from
+	**/
+	static function getAccountSerial(theAccount:Account):String;
+
+	/**
+		This function returns a table over all the accounts that exist in the server internal.db file. (Note: accounts.xml is no longer used after version 1.0.4)OOP Syntax Help! I don't understand this!
+	**/
+	static function getAccounts():Table<Int, Account>;
+
+	/**
+		This function returns a table containing all accounts that were logged onto from specified serial. If the serial is empty string, it will return all accounts that were never logged onto.
+
+		@param serial The serial to get accounts from
+	**/
+	static function getAccountsBySerial(serial:String):Table<Int, Account>;
+
+	/**
+		This function returns a table containing all the user data for the account providedOOP Syntax Help! I don't understand this!
+
+		@param theAccount The account you wish to retrieve all data from.
+	**/
+	static function getAllAccountData(theAccount:Account):Table<Int, String>;
+
+	/**
+		This function returns the specified player's account object.OOP Syntax Help! I don't understand this!
+
+		@param thePlayer The player element you want to get the account of.
+	**/
+	static function getPlayerAccount(thePlayer:Player):Account;
+
+	/**
+		This function checks to see if an account is a guest account. A guest account is an account automatically created for a user when they join the server and deleted when they quit or login to another account. Data stored in a guest account is not stored after the player has left the server. As a consequence, this function will check if a player is logged in or not.OOP Syntax Help! I don't understand this!
+
+		@param theAccount The account you want to check to see if it is a guest account.
+	**/
+	static function isGuestAccount(theAccount:Account):Bool;
+
+	/**
+		This functions logs the given player in to the given account. You need to provide the password needed to log into that account.OOP Syntax Help! I don't understand this!
+
+		@param thePlayer The player to log into an account
+		@param theAccount The account to log the player into
+		@param thePassword The password needed to sign into this account
+	**/
+	static function logIn(thePlayer:Player, theAccount:Account, thePassword:String):Bool;
+
+	/**
+		This function logs the given player out of his current account.OOP Syntax Help! I don't understand this!
+
+		@param thePlayer The player to log out of his current account
+	**/
+	static function logOut(thePlayer:Player):Bool;
+
+	/**
+		This function is used to delete existing player accounts.
+
+		@param theAccount The account you wish to remove
+	**/
+	static function removeAccount(theAccount:Account):Bool;
+
+	/**
+		This function sets a string to be stored in an account. This can then be retrieved using getAccountData. Data stored as account data is persistent across user's sessions and maps, unless they are logged into a guest account. Even if logged into a guest account, account data can be useful as a way to store a reference to your own account system, though it's persistence is equivalent to that of using setElementData on the player's element.
+
+		@param theAccount The account you wish to retrieve the data from.
+		@param key The key under which you wish to store the data
+		@param value The value you wish to store. Set to false to remove the data. NOTE: you cannot store tables as values, but you can use toJSON strings.
+	**/
+	static function setAccountData(theAccount:Account, key:String, value:Dynamic):Bool;
+
+	/**
+		This function sets the password of the specified account.OOP Syntax Help! I don't understand this!
+
+		@param theAccount the account whose password you want to set
+		@param password the password
+	**/
+	static function setAccountPassword(theAccount:Account, password:String):Bool;
+
+	/**
+		This function returns a table containing all accounts with specified dataName and value (set with setAccountData).OOP Syntax Help! I don't understand this!
+
+		@param dataName The name of the data
+		@param value The value the dataName should have
+	**/
+	static function getAccountsByData(dataName:String, value:String):Table<Int, Account>;
+
+	/**
+		This function sets the name of an account.
+
+		@param theAccount The account you wish to change the name.
+		@param name The new name.
+		@param allowCaseVariations Whether the username is case sensitive (if this is set to true, usernames "Bob" and "bob" will refer to different accounts)
+	**/
+	static function setAccountName(theAccount:Account, name:String, ?allowCaseVariations:Bool = false):Bool;
+
+	/**
+		This function creates an ACL entry in the Access Control List system with the specified name.OOP Syntax Help! I don't understand this!
+
+		@param aclName The name of the ACL entry to add.
+	**/
+	static function aclCreate(aclName:String):ACL;
+
+	/**
+		This function creates a group in the ACL. An ACL group can contain objects like players and resources. They specify who has access to the ACL's in this group.OOP Syntax Help! I don't understand this!
+
+		@param groupName The name of the group to create
+	**/
+	static function aclCreateGroup(groupName:String):ACLGroup;
+
+	/**
+		This function destroys the ACL passed. The destroyed ACL will no longer be valid.OOP Syntax Help! I don't understand this!
+
+		@param theACL The ACL to destroy
+	**/
+	static function aclDestroy(theACL:ACL):Bool;
+
+	/**
+		This function destroys the given ACL group. The destroyed ACL group will no longer be valid.OOP Syntax Help! I don't understand this!
+
+		@param aclGroup The aclgroup element to destroy
+	**/
+	static function aclDestroyGroup(aclGroup:ACLGroup):Bool;
+
+	/**
+		Get the ACL with the given name. If need to get most of the ACL's, you should consider using aclList to get a table of them all.OOP Syntax Help! I don't understand this!
+
+		@param aclName The name to get the ACL belonging to
+	**/
+	static function aclGet(aclName:String):ACL;
+
+	/**
+		This function is used to get the ACL group with the given name. If you need most of the groups you should consider using aclGroupList instead to get a table containing them all.OOP Syntax Help! I don't understand this!
+
+		@param groupName The name to get the ACL group from
+	**/
+	static function aclGetGroup(groupName:String):ACLGroup;
+
+	/**
+		Get the name of given ACL.OOP Syntax Help! I don't understand this!
+
+		@param theACL The ACL to get the name of
+	**/
+	static function aclGetName(theAcl:ACL):String;
+
+	/**
+		This function returns whether the access for the given right is set to true or false in the ACL.OOP Syntax Help! I don't understand this!
+
+		@param theAcl The ACL to get the right from
+		@param rightName The right name to return the access value of.
+	**/
+	static function aclGetRight(theAcl:ACL, rightName:String):Bool;
+
+	/**
+		This function adds an object to the given ACL group. An object can be a player's account, specified as:Or a resource, specified as:
+
+		@param theGroup The group to add the object name string too.
+		@param theObjectName The object string to add to the given ACL.
+	**/
+	static function aclGroupAddObject(theGroup:ACLGroup, theObjectName:String):Bool;
+
+	/**
+		This function is used to get the name of the given ACL group.OOP Syntax Help! I don't understand this!
+
+		@param aclGroup The ACL group to get the name of
+	**/
+	static function aclGroupGetName(aclGroup:ACLGroup):String;
+
+	/**
+		This function returns a table of all the ACL groups.OOP Syntax Help! I don't understand this!
+	**/
+	static function aclGroupList():Table<Int, ACLGroup>;
+
+	/**
+		This function returns a table over all the objects that exist in a given ACL group. 
+		These are objects like players and resources.OOP Syntax Help! I don't understand this!
+
+		@param theGroup The ACL group to get the objects from
+	**/
+	static function aclGroupListObjects(theGroup:ACLGroup):Table<Int, String>;
+
+	/**
+		This function removes the given object from the given ACL group. The object can be a resource or a player. See aclGroupAddObject for more details.OOP Syntax Help! I don't understand this!
+
+		@param theGroup The ACL group to remove the object string from
+		@param theObjectString The object to remove from the ACL group
+	**/
+	static function aclGroupRemoveObject(theGroup:ACLGroup, theObjectString:String):Bool;
+
+	/**
+		This function returns a list of all the ACLs.OOP Syntax Help! I don't understand this!
+	**/
+	static function aclList():Table<Int, ACL>;
+
+	/**
+		This function returns a table of all the rights that a given ACL has.OOP Syntax Help! I don't understand this!
+
+		@param theACL The ACL to get the rights from
+		@param allowedType The allowed right type. Possible values are general, function, resource and command
+	**/
+	static function aclListRights(theACL:ACL, allowedType:String):Table<Int, String>;
+
+	/**
+		This function reloads the ACL's and the ACL groups from the ACL XML file. All ACL and ACL group elements are invalid after a call to this and should not be used anymore.OOP Syntax Help! I don't understand this!
+	**/
+	static function aclReload():Bool;
+
+	/**
+		This function removes the given right (string) from the given ACL.OOP Syntax Help! I don't understand this!
+
+		@param theAcl The ACL to remove the right from
+		@param rightName The ACL name to remove from the right from
+	**/
+	static function aclRemoveRight(theAcl:ACL, rightName:String):Bool;
+
+	/**
+		The ACL XML file is automatically saved whenever the ACL is modified, but the automatic save can be delayed by up to 10 seconds for performance reasons. Calling this function will force an immediate save.OOP Syntax Help! I don't understand this!
+	**/
+	static function aclSave():Bool;
+
+	/**
+		This functions changes or adds the given right in the given ACL. The access can be true or false and specifies whether the ACL gives access to the right or not.OOP Syntax Help! I don't understand this!
+
+		@param theAcl The ACL to change the right of
+		@param rightName The right to add/change the access property of
+		@param hasAccess Whether the access should be set to true or false
+	**/
+	static function aclSetRight(theAcl:ACL, rightName:String, hasAccess:Bool):Bool;
+
+	/**
+		This function returns whether or not the given object has access to perform the given action.Scripts frequently wish to limit access to features to particular users. The naïve way to do this would be to check if the player who is attempting to perform an action is in a particular group (usually the Admin group). The main issue with doing this is that the Admin group is not guaranteed to exist. It also doesn't give the server admin any flexibility. He might want to allow his 'moderators' access to the function you're limiting access to, or he may want it disabled entirely.
+
+		@param theObject The object to test if has permission to. This can be a client element (ie. a player), a resource or a string in the form "user.<name>" or "resource.<name>".
+		@param theAction The action to test if the given object has access to. Ie. "function.kickPlayer".
+		@param defaultPermission defaultPermission: The default permission if none is specified in either of the groups the given object is a member of. If this is left to true, the given object will have permissions to perform the action unless the opposite is explicitly specified in the ACL. If false, the action will be denied by default unless explicitly approved by the Access Control List.
+	**/
+	static function hasObjectPermissionTo(theObject:EitherType<String, Element>, theAction:String, ?defaultPermission:Bool = true):Bool;
+
+	/**
+		This function will add a ban for the specified IP/username/serial to the server.OOP Syntax Help! I don't understand this!
+
+		@param ip The IP to be banned. If you don't want to ban by IP, set this to null.
+		@param username The MTA Community username to be banned (now obsolete). If you don't want to ban by username, set this to null.
+		@param serial The serial to be banned. If you don't want to ban by serial, set this to null.
+		@param responsibleElement The element that is responsible for banning the ip/username/serial. This can be a player or the root (getRootElement()).
+		@param reason The reason the IP/username/serial will be banned from the server.
+		@param seconds The amount of seconds the player will be banned from the server for. This can be 0 for an infinite amount of time.
+	**/
+	static function addBan(?ip:String, ?username:String, ?serial:String, ?responsibleElement:Player, ?reason:String, ?seconds:Int = 0):Ban;
+
+	/**
+		This function will ban the specified player by either IP, serial or usernameOOP Syntax Help! I don't understand this!
+
+		@param bannedPlayer The player that will be banned from the server.
+	**/
+	static function banPlayer(bannedPlayer:Player, ?IP:Bool = true, ?Username:Bool = false, ?Serial:Bool = false, ?responsiblePlayer:Player, ?reason:String,
+		?seconds:Int = 0):Ban;
+
+	/**
+		This function will return the responsible admin (nickname of the admin) of the specified ban.OOP Syntax Help! I don't understand this!
+
+		@param theBan The ban you want to return the admin of.
+	**/
+	static function getBanAdmin(theBan:Ban):String;
+
+	/**
+		This function will return the nickname (nickname that the player had when he was banned) of the specified ban.OOP Syntax Help! I don't understand this!
+
+		@param theBan The ban element which nickname you want to return.
+	**/
+	static function getBanNick(theBan:Ban):String;
+
+	/**
+		This function will return the ban reason of the specified ban.OOP Syntax Help! I don't understand this!
+
+		@param theBan The ban in which you want to return the reason of.
+	**/
+	static function getBanReason(theBan:Ban):String;
+
+	/**
+		This function will return the serial of the specified ban.OOP Syntax Help! I don't understand this!
+
+		@param theBan The ban you want to retrieve the serial of.
+	**/
+	static function getBanSerial(theBan:Ban):String;
+
+	/**
+		This function will return the time the specified ban was created, in seconds.OOP Syntax Help! I don't understand this!
+
+		@param theBan The ban of which you wish to retrieve the time of.
+	**/
+	static function getBanTime(theBan:Ban):Int;
+
+	/**
+		This function will return the username of the specified ban.Returns a string of the username if everything was successful, false if invalid arguments are specified if there was no username specified for the ban.
+
+		@param theBan The ban in which you wish to retrieve the username of.
+	**/
+	static function getBanUsername(theBan:Ban):String;
+
+	/**
+		This function will return a table containing all the bans present in the server's banlist.xml.OOP Syntax Help! I don't understand this!
+
+
+	**/
+	static function getBans():Table<Int, Ban>;
+
+	/**
+		This function will return the unbanning time of the specified ban in seconds.OOP Syntax Help! I don't understand this!
+
+		@param theBan The ban in which you wish to retrieve the unban time of.
+	**/
+	static function getUnbanTime(theBan:Ban):Int;
+
+	/**
+		This function checks whether the passed value is valid ban or not.Returns true if the value is a ban, false otherwise.
+
+		@param theBan The value to check
+	**/
+	static function isBan(theBan:Ban):Bool;
+
+	/**
+		This function will kick the specified player from the server.
+
+		@param kickedPlayer The player that will be kicked from the server
+		@param responsiblePlayer The player that is responsible for the event. Note: If left out as in the second syntax, responsible player for the kick will be "Console" (Maximum 30 characters if using a string).
+		@param reason The reason for the kick. (Maximum 64 characters before 1.5.8, Maximum 128 characters after 1.5.8)
+	**/
+	static function kickPlayer(kickedPlayer:Player, ?responsiblePlayer:Player, ?reason:String):Bool;
+
+	/**
+		This function sets a new admin for a ban.OOP Syntax Help! I don't understand this!
+
+		@param theBan The ban you want to change the admin of.
+		@param theAdmin The new admin.
+	**/
+	static function setBanAdmin(theBan:Ban, theAdmin:String):Bool;
+
+	/**
+		This function sets a new nick for a ban.
+
+		@param theBan The ban you want to change the nick of.
+		@param theNick A string representing the nick you want to set the ban to.
+	**/
+	static function setBanNick(theBan:Ban, theNick:String):Bool;
+
+	/**
+		This function sets the reason for the specified ban. 
+
+		@param theBan The ban that you wish to set the reason of.
+		@param theReason the new reason (max 60 characters).
+	**/
+	static function setBanReason(theBan:Ban, theReason:String):Bool;
+
+	/**
+		This function sets a new unban time of a given ban using unix timestamp (seconds since Jan 01 1970).
+
+		@param theBan The ban of which to change the unban time of
+		@param theTime the new unban time
+	**/
+	static function setUnbanTime(theBan:Ban, theTime:Int):Bool;
+
+	/**
+		This function will reload the server ban list file.OOP Syntax Help! I don't understand this!
+	**/
+	static function reloadBans():Bool;
+
+	/**
+		This function will remove a specific ban.OOP Syntax Help! I don't understand this!
+
+		@param theBan The ban to be removed.
+	**/
+	static function removeBan(theBan:Ban, ?responsibleElement:Player):Bool;
+
+	/**
+		This function plays a frontend sound for the specified player.
+
+		@param thePlayer the player you want the sound to play for.
+		@param sound a whole int specifying the sound id to play. 
+	**/
+	static function playSoundFrontEnd(thePlayer:Player, sound:Int):Bool;
+
+	/**
+		This function retrieves the current gametype as set by setGameType. The game type is displayed in the server browser next to the server's name.Returns the gametype as a string. If no gametype is set it returns nil.
+	**/
+	static function getGameType():String;
+
+	/**
+		This function retrieves the current mapname as set by setMapName.Returns the mapname as a string. If no mapname is set it returns nil.
+	**/
+	static function getMapName():String;
+
+	/**
+		This function gets a rule value. A rule value is a string that can be viewed by server browsers and used for filtering the server list.
+
+		@param key The name of the rule
+	**/
+	static function getRuleValue(key:String):String;
+
+	/**
+		This function removes a set rule value that can be viewed by server browsers.Returns true if the rule value was removed, false if it failed.
+
+		@param key The name of the rule you wish to remove
+	**/
+	static function removeRuleValue(key:String):Bool;
+
+	/**
+		This function sets a string containing a name for the game type. This should be the game-mode that is active, for example "Capture The Flag" or "Deathmatch". This is then displayed in the server browser and external server browsers.It should be noted that mapmanager handles this automatically for gamemodes that utilise the map/gamemode system.
+
+		@param gameType A string containing a name for the game mode, or false to clear it.
+	**/
+	static function setGameType(gameType:String):Bool;
+
+	/**
+		This function is used to set a map name that will be visible in the server browser. In practice you should generally rely on the mapmanager to do this for you.Returns true if map name was set successfully, false otherwise.
+
+		@param mapName The name you wish the server browser to show.
+	**/
+	static function setMapName(mapName:String):Bool;
+
+	/**
+		This function sets a rule value that can be viewed by server browsers.Returns true if the rule value was set, false if invalid arguments were specified.
+
+		@param key The name of the rule
+		@param value The value you wish to set for the rule
+	**/
+	static function setRuleValue(key:String, value:String):Bool;
+
+	// [createBlip]
+	// [createBlipAttachedTo]
+	// [getBlipColor]
+	// [getBlipIcon]
+	// [getBlipOrdering]
+	// [getBlipSize]
+	// [getBlipVisibleDistance]
+	// [setBlipColor]
+	// [setBlipIcon]
+	// [setBlipOrdering]
+	// [setBlipSize]
+	// [setBlipVisibleDistance]
+	// [fadeCamera]
+	// [getCameraInterior]
+	// [getCameraMatrix]
+	// [getCameraTarget]
+	// [setCameraInterior]
+	// [setCameraMatrix]
+	// [setCameraTarget]
+	// [getBodyPartName]
+	// [getClothesByTypeIndex]
+	// [getClothesTypeName]
+	// [getTypeIndexFromClothes]
+	// [addColPolygonPoint]
+	// [createColCircle]
+	// [createColCuboid]
+	// [createColPolygon]
+	// [createColRectangle]
+	// [createColSphere]
+	// [createColTube]
+	// [getColPolygonHeight]
+	// [getColPolygonPoints]
+	// [getColPolygonPointPosition]
+	// [getColShapeType]
+	// [getColShapeRadius]
+	// [getColShapeSize]
+	// [getElementColShape]
+	// [getElementsWithinColShape]
+	// [isElementWithinColShape]
+	// [isInsideColShape]
+	// [removeColPolygonPoint]
+	// [setColPolygonHeight]
+	// [setColPolygonPointPosition]
+	// [setColShapeRadius]
+	// [setColShapeSize]
+	// [isCursorShowing]
+	// [showCursor]
+	// [addElementDataSubscriber]
+	// [attachElements]
+	// [clearElementVisibleTo]
+	// [cloneElement]
+	// [createElement]
+	// [destroyElement]
+	// [detachElements]
+	// [getAllElementData]
+	// [getAttachedElements]
+	// [getElementAlpha]
+	// [getElementAttachedOffsets]
+	// [getElementAttachedTo]
+	// [getElementCollisionsEnabled]
+	// [getElementByIndex]
+	// [getElementChild]
+	// [getElementChildren]
+	// [getElementChildrenCount]
+	// [getElementData]
+	// [getElementDimension]
+	// [getElementHealth]
+	// [getElementInterior]
+	// [getElementMatrix]
+	// [getElementModel]
+	// [getElementParent]
+	// [getElementPosition]
+	// [getElementRotation]
+	// [getElementSyncer]
+	// [getElementType]
+	// [getElementVelocity]
+	// [getElementZoneName]
+	// [getElementsByType]
+	// [getRootElement]
+	// [hasElementData]
+	// [hasElementDataSubscriber]
+	// [isElementAttached]
+	// [isElementCallPropagationEnabled]
+	// [isElementDoubleSided]
+	// [isElementFrozen]
+	// [isElementInWater]
+	// [isElementVisibleTo]
+	// [isElementWithinMarker]
+	// [removeElementData]
+	// [removeElementDataSubscriber]
+	// [setElementAlpha]
+	// [setElementAngularVelocity]
+	// [getElementAngularVelocity]
+	// [setElementAttachedOffsets]
+	// [setElementCallPropagationEnabled]
+	// [setElementCollisionsEnabled]
+	// [setElementData]
+	// [setElementDimension]
+	// [setElementDoubleSided]
+	// [setElementFrozen]
+	// [setElementHealth]
+	// [setElementInterior]
+	// [setElementModel]
+	// [setElementParent]
+	// [setElementPosition]
+	// [setElementRotation]
+	// [setElementSyncer]
+	// [setElementVelocity]
+	// [setElementVisibleTo]
+	// [addEvent]
+	// [addEventHandler]
+	// [cancelEvent]
+	// [cancelLatentEvent]
+	// [getCancelReason]
+	// [getEventHandlers]
+	// [getLatentEventHandles]
+	// [getLatentEventStatus]
+	// [removeEventHandler]
+	// [triggerEvent]
+	// [triggerClientEvent]
+	// [triggerLatentClientEvent]
+	// [wasEventCancelled]
+	// [createExplosion]
+	// [fileClose]
+	// [fileCopy]
+	// [fileCreate]
+	// [fileDelete]
+	// [fileExists]
+	// [fileFlush]
+	// [fileGetPath]
+	// [fileGetPos]
+	// [fileGetSize]
+	// [fileOpen]
+	// [fileRead]
+	// [fileRename]
+	// [fileSetPos]
+	// [fileWrite]
+	// [httpClear]
+	// [httpRequestLogin]
+	// [httpSetResponseCode]
+	// [httpSetResponseCookie]
+	// [httpSetResponseHeader]
+	// [httpWrite]
+	// [addCommandHandler]
+	// [bindKey]
+	// [executeCommandHandler]
+	// [getCommandHandlers]
+	// [getControlState]
+	// [getFunctionsBoundToKey]
+	// [getKeyBoundToFunction]
+	// [isControlEnabled]
+	// [isKeyBound]
+	// [removeCommandHandler]
+	// [setControlState]
+	// [toggleAllControls]
+	// [toggleControl]
+	// [unbindKey]
+	// [loadMapData]
+	// [resetMapInfo]
+	// [saveMapData]
+	// [createMarker]
+	// [getMarkerColor]
+	// [getMarkerCount]
+	// [getMarkerIcon]
+	// [getMarkerSize]
+	// [getMarkerTarget]
+	// [getMarkerType]
+	// [setMarkerColor]
+	// [setMarkerIcon]
+	// [setMarkerSize]
+	// [setMarkerTarget]
+	// [setMarkerType]
+	// [getLoadedModules]
+	// [getModuleInfo]
+	// [createObject]
+	// [getObjectScale]
+	// [setObjectScale]
+	// [stopObject]
+	// [clearChatBox]
+	// [outputChatBox]
+	// [outputConsole]
+	// [outputDebugString]
+	// [outputServerLog]
+	// [showChat]
+	// [addPedClothes]
+	// [createPed]
+	// [getPedAmmoInClip]
+	// [getPedArmor]
+	// [getPedClothes]
+	// [getPedContactElement]
+	// [getPedFightingStyle]
+	// [getPedGravity]
+	// [getPedOccupiedVehicle]
+	// [getPedOccupiedVehicleSeat]
+	// [getPedStat]
+	// [getPedTarget]
+	// [getPedTotalAmmo]
+	// [getPedWalkingStyle]
+	// [getPedWeapon]
+	// [getPedWeaponSlot]
+	// [getValidPedModels]
+	// [isPedChoking]
+	// [isPedDead]
+	// [isPedDoingGangDriveby]
+	// [isPedDucked]
+	// [isPedHeadless]
+	// [isPedInVehicle]
+	// [isPedOnFire]
+	// [isPedOnGround]
+	// [isPedWearingJetpack]
+	// [killPed]
+	// [reloadPedWeapon]
+	// [removePedClothes]
+	// [removePedFromVehicle]
+	// [setPedAnimation]
+	// [setPedAnimationProgress]
+	// [setPedAnimationSpeed]
+	// [setPedArmor]
+	// [setPedChoking]
+	// [setPedDoingGangDriveby]
+	// [setPedFightingStyle]
+	// [setPedGravity]
+	// [setPedHeadless]
+	// [setPedOnFire]
+	// [setPedStat]
+	// [setPedWalkingStyle]
+	// [setPedWeaponSlot]
+	// [setPedWearingJetpack]
+	// [warpPedIntoVehicle]
+	// [createPickup]
+	// [getPickupAmmo]
+	// [getPickupAmount]
+	// [getPickupRespawnInterval]
+	// [getPickupType]
+	// [getPickupWeapon]
+	// [isPickupSpawned]
+	// [setPickupRespawnInterval]
+	// [setPickupType]
+	// [usePickup]
+	// [forcePlayerMap]
+	// [getAlivePlayers]
+	// [getDeadPlayers]
+	// [getPlayerAnnounceValue]
+	// [getPlayerBlurLevel]
+	// [getPlayerCount]
+	// [getPlayerFromName]
+	// [getPlayerIdleTime]
+	// [getPlayerMoney]
+	// [getPlayerName]
+	// [getPlayerNametagColor]
+	// [getPlayerNametagText]
+	// [getPlayerPing]
+	// [getPlayerScriptDebugLevel]
+	// [getPlayerSerial]
+	// [getPlayerTeam]
+	// [getPlayerVersion]
+	// [getPlayerWantedLevel]
+	// [getRandomPlayer]
+	// [givePlayerMoney]
+	// [isPlayerMapForced]
+	// [isPlayerMuted]
+	// [isPlayerNametagShowing]
+	// [isVoiceEnabled]
+	// [redirectPlayer]
+	// [resendPlayerModInfo]
+	// [setPlayerAnnounceValue]
+	// [setPlayerBlurLevel]
+	// [setPlayerHudComponentVisible]
+	// [setPlayerMoney]
+	// [setPlayerMuted]
+	// [setPlayerName]
+	// [setPlayerNametagColor]
+	// [setPlayerNametagShowing]
+	// [setPlayerNametagText]
+	// [setPlayerScriptDebugLevel]
+	// [setPlayerTeam]
+	// [setPlayerVoiceBroadcastTo]
+	// [setPlayerVoiceIgnoreFrom]
+	// [setPlayerWantedLevel]
+	// [spawnPlayer]
+	// [takePlayerMoney]
+	// [takePlayerScreenShot]
+	// [detonateSatchels]
+	// [createRadarArea]
+	// [getRadarAreaColor]
+	// [getRadarAreaSize]
+	// [isInsideRadarArea]
+	// [isRadarAreaFlashing]
+	// [setRadarAreaColor]
+	// [setRadarAreaFlashing]
+	// [setRadarAreaSize]
+	// [addResourceConfig]
+	// [addResourceMap]
+	// [callRemote]
+	// [copyResource]
+	// [createResource]
+	// [deleteResource]
+	// [fetchRemote]
+	// [getResourceConfig]
+	// [getResourceDynamicElementRoot]
+	// [getResourceExportedFunctions]
+	// [getResourceFromName]
+	// [getResourceInfo]
+	// [getResourceLastStartTime]
+	// [getResourceLoadFailureReason]
+	// [getResourceLoadTime]
+	// [getResourceMapRootElement]
+	// [getResourceName]
+	// [getResourceOrganizationalPath]
+	// [getResourceRootElement]
+	// [getResourceState]
+	// [getResources]
+	// [getThisResource]
+	// [isResourceArchived]
+	// [isResourceProtected]
+	// [refreshResources]
+	// [removeResourceFile]
+	// [renameResource]
+	// [restartResource]
+	// [setResourceInfo]
+	// [stopResource]
+	// [getRemoteRequests]
+	// [getRemoteRequestInfo]
+	// [abortRemoteRequest]
+	// [getMaxPlayers]
+	// [getServerHttpPort]
+	// [getServerName]
+	// [getServerPassword]
+	// [getServerPort]
+	// [getVersion]
+	// [isGlitchEnabled]
+	// [isTransferBoxVisible]
+	// [setGlitchEnabled]
+	// [setMaxPlayers]
+	// [setServerPassword]
+	// [setTransferBoxVisible]
+	// [dbConnect]
+	// [dbExec]
+	// [dbFree]
+	// [dbPoll]
+	// [dbPrepareString]
+	// [dbQuery]
+	// [countPlayersInTeam]
+	// [createTeam]
+	// [getPlayersInTeam]
+	// [getTeamColor]
+	// [getTeamFriendlyFire]
+	// [getTeamFromName]
+	// [getTeamName]
+	// [setTeamColor]
+	// [setTeamFriendlyFire]
+	// [setTeamName]
+	// [textCreateDisplay]
+	// [textCreateTextItem]
+	// [textDestroyDisplay]
+	// [textDestroyTextItem]
+	// [textDisplayAddObserver]
+	// [textDisplayAddText]
+	// [textDisplayGetObservers]
+	// [textDisplayIsObserver]
+	// [textDisplayRemoveObserver]
+	// [textDisplayRemoveText]
+	// [textItemGetColor]
+	// [textItemGetPosition]
+	// [textItemGetPriority]
+	// [textItemGetScale]
+	// [textItemGetText]
+	// [textItemSetColor]
+	// [textItemSetPosition]
+	// [textItemSetPriority]
+	// [textItemSetScale]
+	// [textItemSetText]
+	// [addDebugHook]
+	// [bitAnd]
+	// [bitNot]
+	// [bitOr]
+	// [bitXor]
+	// [bitTest]
+	// [bitArShift]
+	// [bitExtract]
+	// [bitReplace]
+	// [debugSleep]
+	// [decodeString]
+	// [encodeString]
+	// [getColorFromString]
+	// [getDevelopmentMode]
+	// [getEasingValue]
+	// [getNetworkStats]
+	// [getNetworkUsageData]
+	// [getPerformanceStats]
+	// [getRealTime]
+	// [getServerConfigSetting]
+	// [getTickCount]
+	// [getTimerDetails]
+	// [getTimers]
+	// [getUserdataType]
+	// [interpolateBetween]
+	// [isTimer]
+	// [killTimer]
+	// [passwordHash]
+	// [passwordVerify]
+	// [pregFind]
+	// [pregMatch]
+	// [pregReplace]
+	// [removeDebugHook]
+	// [resetTimer]
+	// [setDevelopmentMode]
+	// [setServerConfigSetting]
+	// [teaDecode]
+	// [teaEncode]
+	// [utfChar]
+	// [utfCode]
+	// [utfLen]
+	// [utfSeek]
+	// [utfSub]
+	// [addVehicleSirens]
+	// [addVehicleUpgrade]
+	// [attachTrailerToVehicle]
+	// [blowVehicle]
+	// [createVehicle]
+	// [detachTrailerFromVehicle]
+	// [fixVehicle]
+	// [getModelHandling]
+	// [getOriginalHandling]
+	// [getTrainDirection]
+	// [getTrainPosition]
+	// [getTrainSpeed]
+	// [getVehicleColor]
+	// [getVehicleCompatibleUpgrades]
+	// [getVehicleController]
+	// [getVehicleDoorOpenRatio]
+	// [getVehicleDoorState]
+	// [getVehicleEngineState]
+	// [getVehicleHandling]
+	// [getVehicleHeadLightColor]
+	// [getVehicleLandingGearDown]
+	// [getVehicleLightState]
+	// [getVehicleMaxPassengers]
+	// [getVehicleModelFromName]
+	// [getVehicleName]
+	// [getVehicleNameFromModel]
+	// [getVehicleOccupant]
+	// [getVehicleOccupants]
+	// [getVehicleOverrideLights]
+	// [getVehiclePaintjob]
+	// [getVehiclePanelState]
+	// [getVehiclePlateText]
+	// [getVehicleRespawnPosition]
+	// [getVehicleRespawnRotation]
+	// [getVehicleSirenParams]
+	// [getVehicleSirens]
+	// [getVehicleSirensOn]
+	// [getVehicleTowedByVehicle]
+	// [getVehicleTowingVehicle]
+	// [getVehicleTurretPosition]
+	// [getVehicleType]
+	// [getVehicleUpgradeOnSlot]
+	// [getVehicleUpgradeSlotName]
+	// [getVehicleUpgrades]
+	// [getVehicleVariant]
+	// [getVehicleWheelStates]
+	// [getVehiclesOfType]
+	// [isTrainDerailable]
+	// [isTrainDerailed]
+	// [isVehicleBlown]
+	// [isVehicleDamageProof]
+	// [isVehicleFuelTankExplodable]
+	// [isVehicleLocked]
+	// [isVehicleOnGround]
+	// [isVehicleTaxiLightOn]
+	// [removeVehicleSirens]
+	// [removeVehicleUpgrade]
+	// [resetVehicleExplosionTime]
+	// [resetVehicleIdleTime]
+	// [respawnVehicle]
+	// [setModelHandling]
+	// [setTrainDerailable]
+	// [setTrainDerailed]
+	// [setTrainDirection]
+	// [setTrainPosition]
+	// [setTrainSpeed]
+	// [setVehicleColor]
+	// [setVehicleDamageProof]
+	// [setVehicleDoorOpenRatio]
+	// [setVehicleDoorState]
+	// [setVehicleDoorsUndamageable]
+	// [setVehicleEngineState]
+	// [setVehicleFuelTankExplodable]
+	// [setVehicleHandling]
+	// [setVehicleHeadLightColor]
+	// [setVehicleIdleRespawnDelay]
+	// [setVehicleLandingGearDown]
+	// [setVehicleLightState]
+	// [setVehicleLocked]
+	// [setVehicleOverrideLights]
+	// [setVehiclePaintjob]
+	// [setVehiclePanelState]
+	// [setVehiclePlateText]
+	// [setVehicleRespawnDelay]
+	// [setVehicleRespawnPosition]
+	// [setVehicleRespawnRotation]
+	// [setVehicleSirens]
+	// [setVehicleSirensOn]
+	// [setVehicleTaxiLightOn]
+	// [setVehicleTurretPosition]
+	// [setVehicleVariant]
+	// [setVehicleWheelStates]
+	// [toggleVehicleRespawn]
+	// [createWater]
+	// [getWaterColor]
+	// [getWaterVertexPosition]
+	// [getWaveHeight]
+	// [resetWaterColor]
+	// [resetWaterLevel]
+	// [setWaterVertexPosition]
+	// [setWaveHeight]
+	// [getOriginalWeaponProperty]
+	// [getSlotFromWeapon]
+	// [getWeaponProperty]
+	// [giveWeapon]
+	// [setWeaponAmmo]
+	// [setWeaponProperty]
+	// [takeAllWeapons]
+	// [takeWeapon]
+	// [areTrafficLightsLocked]
+	// [getAircraftMaxVelocity]
+	// [getCloudsEnabled]
+	// [getFarClipDistance]
+	// [getFogDistance]
+	// [getGameSpeed]
+	// [getGravity]
+	// [getHeatHaze]
+	// [getJetpackMaxHeight]
+	// [getJetpackWeaponEnabled]
+	// [getMinuteDuration]
+	// [getMoonSize]
+	// [getOcclusionsEnabled]
+	// [getRainLevel]
+	// [getSkyGradient]
+	// [getSunColor]
+	// [getSunSize]
+	// [getTrafficLightState]
+	// [getWeather]
+	// [getWindVelocity]
+	// [getZoneName]
+	// [isGarageOpen]
+	// [removeWorldModel]
+	// [resetFarClipDistance]
+	// [resetFogDistance]
+	// [resetHeatHaze]
+	// [resetMoonSize]
+	// [resetRainLevel]
+	// [resetSkyGradient]
+	// [resetSunColor]
+	// [resetSunSize]
+	// [resetWindVelocity]
+	// [restoreAllWorldModels]
+	// [restoreWorldModel]
+	// [setAircraftMaxVelocity]
+	// [setCloudsEnabled]
+	// [setGameSpeed]
+	// [setGarageOpen]
+	// [setGravity]
+	// [setInteriorSoundsEnabled]
+	// [setJetpackWeaponEnabled]
+	// [setMinuteDuration]
+	// [setOcclusionsEnabled]
+	// [setTrafficLightState]
+	// [setTrafficLightsLocked]
+	// [setWeather]
+	// [setWeatherBlended]
+	// [xmlCopyFile]
+	// [xmlCreateChild]
+	// [xmlCreateFile]
+	// [xmlDestroyNode]
+	// [xmlFindChild]
+	// [xmlLoadFile]
+	// [xmlLoadString]
+	// [xmlNodeGetAttribute]
+	// [xmlNodeGetAttributes]
+	// [xmlNodeGetChildren]
+	// [xmlNodeGetName]
+	// [xmlNodeGetParent]
+	// [xmlNodeGetValue]
+	// [xmlNodeSetAttribute]
+	// [xmlNodeSetName]
+	// [xmlNodeSetValue]
+	// [xmlSaveFile]
+	// [xmlUnloadFile]
+}
