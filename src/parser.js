@@ -84,6 +84,8 @@ function getHaxeParamsString(params) {
                             {
                                 type: 'toggle',
                                 name: 'optional',
+                                active: 'yes',
+                                inactive: 'no',
                                 message: 'Is ' + chalk.yellow(paramName) + ' optional?'
                             },
                             {

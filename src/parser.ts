@@ -40,6 +40,8 @@ async function getHaxeParamsString(params: string): Promise<string> {
       {
         type: 'toggle',
         name: 'optional',
+        active: 'yes',
+        inactive: 'no',
         message: 'Is ' + chalk.yellow(paramName) + ' optional?'
       },
       {
