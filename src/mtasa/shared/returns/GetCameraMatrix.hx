@@ -1,12 +1,10 @@
 package mtasa.shared.returns;
 
+import mtasa.shared.classes.Vector3;
+
 @:multiReturn extern class GetCameraMatrix {
-	var posX:Float;
-	var posY:Float;
-	var posZ:Float;
-	var lookAtX:Float;
-	var lookAtY:Float;
-	var lookAtZ:Float;
+	var position:Vector3;
+	var lookAtPosition:Vector3;
 	var roll:Float;
 	var fov:Float;
 }
