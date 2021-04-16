@@ -1,18 +1,6 @@
 package mtasa.server;
 
-import mtasa.shared.enums.MarkerIcon;
-import mtasa.shared.returns.GetMarkerColor;
-import mtasa.shared.enums.MarkerType;
-import mtasa.server.classes.XMLNode;
-import mtasa.shared.enums.Control;
-import mtasa.server.classes.Resource;
-import mtasa.shared.enums.KeyState;
-import mtasa.shared.classes.File;
-import mtasa.shared.enums.ExplosionType;
-import mtasa.shared.enums.LatentEventStatus;
 import haxe.Constraints.Function;
-import mtasa.server.enums.ElementSyncMode;
-import mtasa.server.classes.Marker;
 import haxe.Rest;
 import haxe.extern.EitherType;
 import lua.Table;
@@ -23,7 +11,12 @@ import mtasa.server.classes.Ban;
 import mtasa.server.classes.Blip;
 import mtasa.server.classes.ColShape;
 import mtasa.server.classes.Element;
+import mtasa.server.classes.Marker;
 import mtasa.server.classes.Player;
+import mtasa.server.classes.Resource;
+import mtasa.server.classes.XMLNode;
+import mtasa.server.enums.ElementSyncMode;
+import mtasa.shared.classes.File;
 import mtasa.shared.classes.Matrix;
 import mtasa.shared.classes.Vector2;
 import mtasa.shared.classes.Vector3;
@@ -32,9 +25,16 @@ import mtasa.shared.enums.BlipIcon;
 import mtasa.shared.enums.BodyPart;
 import mtasa.shared.enums.ClothesType;
 import mtasa.shared.enums.ColShapeType;
+import mtasa.shared.enums.Control;
+import mtasa.shared.enums.ExplosionType;
+import mtasa.shared.enums.KeyState;
+import mtasa.shared.enums.LatentEventStatus;
+import mtasa.shared.enums.MarkerIcon;
+import mtasa.shared.enums.MarkerType;
 import mtasa.shared.returns.GetCameraMatrix;
 import mtasa.shared.returns.GetClothesByTypeIndex;
 import mtasa.shared.returns.GetElementAttachedOffsets;
+import mtasa.shared.returns.GetMarkerColor;
 import mtasa.shared.types.RootElement;
 
 @:native('_G')
@@ -1878,8 +1878,18 @@ extern class Functions {
 	**/
 	static function setMarkerType(theMarker:Marker, markerType:MarkerType):Bool;
 
-	// [getLoadedModules]
-	// [getModuleInfo]
+	/**
+		This function returns all the currently loaded modules of the server.Returns a table of all the currently loaded modules. If no modules are loaded, the table will be empty.
+	**/
+	static function getLoadedModules():Table<Int, String>;
+
+	/**
+		This function returns information about the specified module.Returns a table containing information about module. These keys are present in the table:
+
+		@param moduleName A string containing the module you wish to get information of e.g. "hashing.dll"
+	**/
+	static function getModuleInfo(moduleName:String):{version:String, name:String, author:String};
+
 	// [createObject]
 	// [getObjectScale]
 	// [setObjectScale]
