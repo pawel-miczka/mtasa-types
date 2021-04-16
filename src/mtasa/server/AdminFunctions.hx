@@ -7,7 +7,7 @@ import mtasa.server.classes.Ban;
 @:native('_G')
 extern class AdminFunctions {
 	/**
-		This function will add a ban for the specified IP/username/serial to the server.OOP Syntax Help! I don't understand this!
+		This function will add a ban for the specified IP/username/serial to the server.
 
 		@param ip The IP to be banned. If you don't want to ban by IP, set this to null.
 		@param username The MTA Community username to be banned (now obsolete). If you don't want to ban by username, set this to null.
@@ -19,7 +19,7 @@ extern class AdminFunctions {
 	static function addBan(?ip:String, ?username:String, ?serial:String, ?responsibleElement:Player, ?reason:String, ?seconds:Int = 0):Ban;
 
 	/**
-		This function will ban the specified player by either IP, serial or usernameOOP Syntax Help! I don't understand this!
+		This function will ban the specified player by either IP, serial or username
 
 		@param bannedPlayer The player that will be banned from the server.
 	**/
@@ -27,35 +27,35 @@ extern class AdminFunctions {
 		?seconds:Int = 0):Ban;
 
 	/**
-		This function will return the responsible admin (nickname of the admin) of the specified ban.OOP Syntax Help! I don't understand this!
+		This function will return the responsible admin (nickname of the admin) of the specified ban.
 
 		@param theBan The ban you want to return the admin of.
 	**/
 	static function getBanAdmin(theBan:Ban):String;
 
 	/**
-		This function will return the nickname (nickname that the player had when he was banned) of the specified ban.OOP Syntax Help! I don't understand this!
+		This function will return the nickname (nickname that the player had when he was banned) of the specified ban.
 
 		@param theBan The ban element which nickname you want to return.
 	**/
 	static function getBanNick(theBan:Ban):String;
 
 	/**
-		This function will return the ban reason of the specified ban.OOP Syntax Help! I don't understand this!
+		This function will return the ban reason of the specified ban.
 
 		@param theBan The ban in which you want to return the reason of.
 	**/
 	static function getBanReason(theBan:Ban):String;
 
 	/**
-		This function will return the serial of the specified ban.OOP Syntax Help! I don't understand this!
+		This function will return the serial of the specified ban.
 
 		@param theBan The ban you want to retrieve the serial of.
 	**/
 	static function getBanSerial(theBan:Ban):String;
 
 	/**
-		This function will return the time the specified ban was created, in seconds.OOP Syntax Help! I don't understand this!
+		This function will return the time the specified ban was created, in seconds.
 
 		@param theBan The ban of which you wish to retrieve the time of.
 	**/
@@ -69,14 +69,14 @@ extern class AdminFunctions {
 	static function getBanUsername(theBan:Ban):String;
 
 	/**
-		This function will return a table containing all the bans present in the server's banlist.xml.OOP Syntax Help! I don't understand this!
+		This function will return a table containing all the bans present in the server's banlist.xml.
 
 
 	**/
 	static function getBans():Table<Int, Ban>;
 
 	/**
-		This function will return the unbanning time of the specified ban in seconds.OOP Syntax Help! I don't understand this!
+		This function will return the unbanning time of the specified ban in seconds.
 
 		@param theBan The ban in which you wish to retrieve the unban time of.
 	**/
@@ -99,7 +99,7 @@ extern class AdminFunctions {
 	static function kickPlayer(kickedPlayer:Player, ?responsiblePlayer:Player, ?reason:String):Bool;
 
 	/**
-		This function sets a new admin for a ban.OOP Syntax Help! I don't understand this!
+		This function sets a new admin for a ban.
 
 		@param theBan The ban you want to change the admin of.
 		@param theAdmin The new admin.
@@ -131,12 +131,12 @@ extern class AdminFunctions {
 	static function setUnbanTime(theBan:Ban, theTime:Int):Bool;
 
 	/**
-		This function will reload the server ban list file.OOP Syntax Help! I don't understand this!
+		This function will reload the server ban list file.
 	**/
 	static function reloadBans():Bool;
 
 	/**
-		This function will remove a specific ban.OOP Syntax Help! I don't understand this!
+		This function will remove a specific ban.
 
 		@param theBan The ban to be removed.
 	**/

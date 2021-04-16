@@ -25,7 +25,7 @@ extern class MarkerFunctions {
 		?visibleTo:Element):Marker;
 
 	/**
-		This function returns the color and transparency for a marker element. Not all marker types support transparency.OOP Syntax Help! I don't understand this!
+		This function returns the color and transparency for a marker element. Not all marker types support transparency.
 
 		@param theMarker The marker that you wish to retrieve the color of.
 	**/
@@ -37,35 +37,35 @@ extern class MarkerFunctions {
 	static function getMarkerCount():Int;
 
 	/**
-		This function returns the icon name for a marker.OOP Syntax Help! I don't understand this!
+		This function returns the icon name for a marker.
 
 		@param theMarker A marker element referencing the specified marker.
 	**/
 	static function getMarkerIcon(theMarker:Marker):MarkerIcon;
 
 	/**
-		This function returns a float containing the size of the specified marker.OOP Syntax Help! I don't understand this!
+		This function returns a float containing the size of the specified marker.
 
 		@param myMarker The marker that you wish to retrieve the size of.
 	**/
 	static function getMarkerSize(myMarker:Marker):Float;
 
 	/**
-		This function returns the position of the specified marker's target, the position it points to. This only works for checkpoint markers and ring markers. For checkpoints it returns the position the arrow is pointing to, for ring markers it returns the position the ring is facing. You can set this target with setMarkerTarget.OOP Syntax Help! I don't understand this!
+		This function returns the position of the specified marker's target, the position it points to. This only works for checkpoint markers and ring markers. For checkpoints it returns the position the arrow is pointing to, for ring markers it returns the position the ring is facing. You can set this target with setMarkerTarget.
 
 		@param theMarker The marker you wish to retrieve the target position of.
 	**/
 	static function getMarkerTarget(theMarker:Marker):Float;
 
 	/**
-		This function returns a marker's type.OOP Syntax Help! I don't understand this!
+		This function returns a marker's type.
 
 		@param theMarker A marker element referencing the specified marker.
 	**/
 	static function getMarkerType(theMarker:Marker):MarkerType;
 
 	/**
-		This function sets the color of the specified marker by modifying the values for red, green, blue and alpha.OOP Syntax Help! I don't understand this!
+		This function sets the color of the specified marker by modifying the values for red, green, blue and alpha.
 
 		@param theMarker The marker that you wish to set the color of.
 		@param r The amount of red in the final color (0 to 255).
@@ -100,7 +100,7 @@ extern class MarkerFunctions {
 	static function setMarkerTarget(theMarker:Marker, coordinates:Vector3):Bool;
 
 	/**
-		This function changes a marker's type. The type controls how the marker is displayed in the game. It's important that you use marker types that users are used to from the single player game. For example, checkpoints are used in races, rings are used for aircraft races, arrows are used for entering buildings etc.OOP Syntax Help! I don't understand this!
+		This function changes a marker's type. The type controls how the marker is displayed in the game. It's important that you use marker types that users are used to from the single player game. For example, checkpoints are used in races, rings are used for aircraft races, arrows are used for entering buildings etc.
 
 		@param theMarker A marker element referencing the specified marker.
 		@param markerType A string denoting the marker type. Valid values are:

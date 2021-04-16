@@ -6,7 +6,7 @@ import mtasa.shared.classes.File;
 @:native('_G')
 extern class FileFunctions {
 	/**
-		Closes a file handle obtained by fileCreate or fileOpen.OOP Syntax Help! I don't understand this!
+		Closes a file handle obtained by fileCreate or fileOpen.
 
 		@param theFile The file handle to close.
 	**/
@@ -29,14 +29,14 @@ extern class FileFunctions {
 	static function fileCreate(filePath:String):File;
 
 	/**
-		Deletes the specified file.OOP Syntax Help! I don't understand this!
+		Deletes the specified file.
 
 		@param filePath The filepath of the file to delete in the following format: ":resourceName/path". 'resourceName' is the name of the resource the file is in, and 'path' is the path from the root directory of the resource to the file.
 	**/
 	static function fileDelete(filePath:String):Bool;
 
 	/**
-		This functions checks whether a specified file exists inside a resource.OOP Syntax Help! I don't understand this!
+		This functions checks whether a specified file exists inside a resource.
 
 		@param filePath The filepath of the file, whose existence is going to be checked, in the following format: ":resourceName/path". 'resourceName' is the name of the resource the file is checked to be in, and 'path' is the path from the root directory of the resource to the file.
 	**/
@@ -71,7 +71,7 @@ extern class FileFunctions {
 	static function fileGetSize(theFile:File):Int;
 
 	/**
-		Opens an existing file for reading and writing.OOP Syntax Help! I don't understand this!
+		Opens an existing file for reading and writing.
 
 		@param filePath The filepath of the file in the following format: ":resourceName/path". 'resourceName' is the name of the resource the file is in, and 'path' is the path from the root directory of the resource to the file.
 		@param readOnly By default, the file is opened with reading and writing access. You can specify true for this parameter if you only need reading access.
@@ -103,7 +103,7 @@ extern class FileFunctions {
 	static function fileSetPos(theFile:File, offset:Int):Int;
 
 	/**
-		Writes one or more strings to a given file, starting at the current read/write position. Advances the position over the number of bytes that were written.OOP Syntax Help! I don't understand this!
+		Writes one or more strings to a given file, starting at the current read/write position. Advances the position over the number of bytes that were written.
 
 		@param theFile A handle to the file you wish to write to. The file must have been opened with write access, i.e. the file handle must be a result of fileCreate or fileOpen with the readonly parameter set to false.
 		@param firstString The string to write.

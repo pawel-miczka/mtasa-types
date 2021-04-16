@@ -31,7 +31,7 @@ extern class ElementFunctions {
 	static function attachElements(theElement:Element, theAttachToElement:Element, offsetPosition:Vector3, offsetRotation:Vector3):Bool;
 
 	/**
-		This function clears any settings added by setElementVisibleTo and restores an element to its default visibility.  This does not work with all entities - vehicles, players and objects are exempt. This is because these objects are required for accurate sync (they're physical objects). This function is particularily useful for changing the visibility of markers, radar blips and radar areas.OOP Syntax Help! I don't understand this!
+		This function clears any settings added by setElementVisibleTo and restores an element to its default visibility.  This does not work with all entities - vehicles, players and objects are exempt. This is because these objects are required for accurate sync (they're physical objects). This function is particularily useful for changing the visibility of markers, radar blips and radar areas.
 
 		@param theElement The element in which you wish to restore to its default visibility
 	**/
@@ -67,7 +67,7 @@ extern class ElementFunctions {
 	static function destroyElement(elementToDestroy:Element):Bool;
 
 	/**
-		This function detaches attached elements from one another.OOP Syntax Help! I don't understand this!
+		This function detaches attached elements from one another.
 
 		@param theElement The element to be detached (the "child")
 	**/
@@ -95,7 +95,7 @@ extern class ElementFunctions {
 	static function getElementAlpha(theElement:Element):Int;
 
 	/**
-		This function returns the offsets of an element that has been attached to another element using attachElements.OOP Syntax Help! I don't understand this!
+		This function returns the offsets of an element that has been attached to another element using attachElements.
 
 		@param theElement The attached element.
 	**/
@@ -116,7 +116,7 @@ extern class ElementFunctions {
 	static function getElementCollisionsEnabled(theElement:Element):Bool;
 
 	/**
-		This function returns an element of the specified type with the specified index.OOP Syntax Help! I don't understand this!
+		This function returns an element of the specified type with the specified index.
 
 		@param theType the type of the element to be returned. Examples include "player", "vehicle", or a custom type.
 		@param index the element's index (0 for the first element, 1 for the second, etc).
@@ -124,7 +124,7 @@ extern class ElementFunctions {
 	static function getElementByIndex(theType:String, index:Int):Element;
 
 	/**
-		This function returns one of the child elements of a given parent element. The child element is selected by its index (0 for the first child, 1 for the second and so on).OOP Syntax Help! I don't understand this!
+		This function returns one of the child elements of a given parent element. The child element is selected by its index (0 for the first child, 1 for the second and so on).
 
 		@param parent the element above the one to be returned in the hierarchy.
 		@param index the element's index (0 for the first element, 1 for the second, etc).
@@ -132,7 +132,7 @@ extern class ElementFunctions {
 	static function getElementChild(parent:Element, index:Int):Element;
 
 	/**
-		This function is used to retrieve a list of the child elements of a given parent element. Note that it will only return direct children and not elements that are further down the element tree.OOP Syntax Help! I don't understand this!
+		This function is used to retrieve a list of the child elements of a given parent element. Note that it will only return direct children and not elements that are further down the element tree.
 
 		@param parent Supply this argument with the parent of the children you want returned.
 		@param theType The type of element you want a list of.
@@ -140,14 +140,14 @@ extern class ElementFunctions {
 	static function getElementChildren(parent:Element, ?theType:String):Table<Int, Element>;
 
 	/**
-		This function returns the number of children an element has. Note that only the direct children are counted and not elements that are further down the element tree.OOP Syntax Help! I don't understand this!
+		This function returns the number of children an element has. Note that only the direct children are counted and not elements that are further down the element tree.
 
 		@param parent the parent element
 	**/
 	static function getElementChildrenCount(parent:Element):Int;
 
 	/**
-		This function retrieves element data attached to an element under a certain key.OOP Syntax Help! I don't understand this!
+		This function retrieves element data attached to an element under a certain key.
 
 		@param theElement This is the element with data you want to retrieve.
 		@param key The name of the element data entry you want to retrieve. (Maximum 31 characters.)
@@ -156,7 +156,7 @@ extern class ElementFunctions {
 	static function getElementData(theElement:Element, key:String, ?inherit:Bool = true):Dynamic;
 
 	/**
-		This function allows you to retrieve the dimension of any element. The dimension determines what/who the element is visible to.OOP Syntax Help! I don't understand this!
+		This function allows you to retrieve the dimension of any element. The dimension determines what/who the element is visible to.
 
 		@param theElement The element in which you'd like to retrieve the dimension of.
 	**/
@@ -170,7 +170,7 @@ extern class ElementFunctions {
 	static function getElementHealth(theElement:Element):Float;
 
 	/**
-		This function allows you to retrieve the interior of any element. An interior is the current loaded place, 0 being outside.OOP Syntax Help! I don't understand this!
+		This function allows you to retrieve the interior of any element. An interior is the current loaded place, 0 being outside.
 
 		@param theElement The element of which you'd like to retrieve the interior
 	**/
@@ -214,7 +214,7 @@ extern class ElementFunctions {
 	static function getElementRotation(theElement:Element, ?rotOrder:String = "default"):Float;
 
 	/**
-		This function gets the syncer of an element. The syncer is the player who is in control of the element.OOP Syntax Help! I don't understand this!
+		This function gets the syncer of an element. The syncer is the player who is in control of the element.
 
 		@param theElement The element to get the syncer of.
 	**/
@@ -254,7 +254,7 @@ extern class ElementFunctions {
 	static function getRootElement():RootElement;
 
 	/**
-		This function checks if an element has element data available under a certain key.OOP Syntax Help! I don't understand this!
+		This function checks if an element has element data available under a certain key.
 
 		@param theElement This is the element with data you want to check.
 		@param key The name of the element data entry you want to check for. (Maximum 31 characters.)
@@ -301,7 +301,7 @@ extern class ElementFunctions {
 	static function isElementFrozen(theElement:Element):Bool;
 
 	/**
-		This function checks whether an element is submerged in water.OOP Syntax Help! I don't understand this!
+		This function checks whether an element is submerged in water.
 
 		@param theElement The element to check.
 	**/
@@ -350,7 +350,7 @@ extern class ElementFunctions {
 	static function setElementAlpha(theElement:Element, alpha:Int):Bool;
 
 	/**
-		Sets the angular velocity of a specified, supported element (Applies a spin to it).OOP Syntax Help! I don't understand this!
+		Sets the angular velocity of a specified, supported element (Applies a spin to it).
 
 		@param theElement The element to apply the spin to. Can be either a player, ped, object, vehicle or a custom weapon.
 		@param velocity Vector3 velocity
@@ -358,21 +358,21 @@ extern class ElementFunctions {
 	static function setElementAngularVelocity(theElement:Element, velocity:Vector3):Bool;
 
 	/**
-		Gets the current angular velocity of a specified, supported element.OOP Syntax Help! I don't understand this!
+		Gets the current angular velocity of a specified, supported element.
 
 		@param theElement The element to retrieve the angular velocity from. Can be either a player, ped, object, vehicle or a custom weapon. Server side supports only vehicles currently.
 	**/
 	static function getElementAngularVelocity(theElement:Element):Vector3;
 
 	/**
-		This function updates the offsets of an element that has been attached to another element using attachElements.OOP Syntax Help! I don't understand this!
+		This function updates the offsets of an element that has been attached to another element using attachElements.
 
 		@param theElement The attached element.
 	**/
 	static function setElementAttachedOffsets(theElement:Element, ?offsetPosition:Vector3, ?offsetRotation:Vector3):Bool;
 
 	/**
-		This function enables/disables call propagation on a certain element. Look at the example for a practical application.OOP Syntax Help! I don't understand this!
+		This function enables/disables call propagation on a certain element. Look at the example for a practical application.
 
 		@param theElement The element whose propagation behaviour you'd like to change
 		@param enabled Whether propagation should be enabled or not
@@ -414,7 +414,7 @@ extern class ElementFunctions {
 	static function setElementDoubleSided(theElement:Element, enable:Bool):Bool;
 
 	/**
-		This function freezes an element (stops it in its position and disables movement) or unfreezes it.OOP Syntax Help! I don't understand this!
+		This function freezes an element (stops it in its position and disables movement) or unfreezes it.
 
 		@param theElement The element whose freeze status we want to change.
 		@param freezeStatus A boolean denoting whether we want to freeze (true) or unfreeze (false) it.
@@ -454,7 +454,7 @@ extern class ElementFunctions {
 	static function setElementParent(theElement:Element, parent:Element):Bool;
 
 	/**
-		This function sets the position of an element to the specified coordinates.OOP Syntax Help! I don't understand this!
+		This function sets the position of an element to the specified coordinates.
 
 		@param theElement A valid element to be moved.
 		@param position New element position
@@ -498,7 +498,7 @@ extern class ElementFunctions {
 	static function setElementVisibleTo(theElement:Element, visibleTo:Element, visible:Bool):Bool;
 
 	/**
-		This function assigns a low LOD element to an element. The low LOD element is displayed when its associated element is not fully visible. If a low LOD element is assigned to several elements, it will be displayed when any of these elements are not fully visible.OOP Syntax Help! I don't understand this!
+		This function assigns a low LOD element to an element. The low LOD element is displayed when its associated element is not fully visible. If a low LOD element is assigned to several elements, it will be displayed when any of these elements are not fully visible.
 
 		@param theElement The element whose low LOD version we want to change.
 		@param lowLODElement  A low LOD element to display when the first element is not fully visible.

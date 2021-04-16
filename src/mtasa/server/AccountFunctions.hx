@@ -6,7 +6,7 @@ import mtasa.server.classes.Account;
 
 @:native('_G')
 extern class AccountFunctions {
-  /**
+	/**
 		This function adds an account to the list of registered accounts of the current server.
 
 		@param name The name of the account you wish to make, this normally is the player's name.
@@ -61,7 +61,7 @@ extern class AccountFunctions {
 	static function getAccountSerial(theAccount:Account):String;
 
 	/**
-		This function returns a table over all the accounts that exist in the server internal.db file. (Note: accounts.xml is no longer used after version 1.0.4)OOP Syntax Help! I don't understand this!
+		This function returns a table over all the accounts that exist in the server internal.db file. (Note: accounts.xml is no longer used after version 1.0.4)
 	**/
 	static function getAccounts():Table<Int, Account>;
 
@@ -73,28 +73,28 @@ extern class AccountFunctions {
 	static function getAccountsBySerial(serial:String):Table<Int, Account>;
 
 	/**
-		This function returns a table containing all the user data for the account providedOOP Syntax Help! I don't understand this!
+		This function returns a table containing all the user data for the account provided
 
 		@param theAccount The account you wish to retrieve all data from.
 	**/
 	static function getAllAccountData(theAccount:Account):Table<Int, String>;
 
 	/**
-		This function returns the specified player's account object.OOP Syntax Help! I don't understand this!
+		This function returns the specified player's account object.
 
 		@param thePlayer The player element you want to get the account of.
 	**/
 	static function getPlayerAccount(thePlayer:Player):Account;
 
 	/**
-		This function checks to see if an account is a guest account. A guest account is an account automatically created for a user when they join the server and deleted when they quit or login to another account. Data stored in a guest account is not stored after the player has left the server. As a consequence, this function will check if a player is logged in or not.OOP Syntax Help! I don't understand this!
+		This function checks to see if an account is a guest account. A guest account is an account automatically created for a user when they join the server and deleted when they quit or login to another account. Data stored in a guest account is not stored after the player has left the server. As a consequence, this function will check if a player is logged in or not.
 
 		@param theAccount The account you want to check to see if it is a guest account.
 	**/
 	static function isGuestAccount(theAccount:Account):Bool;
 
 	/**
-		This functions logs the given player in to the given account. You need to provide the password needed to log into that account.OOP Syntax Help! I don't understand this!
+		This functions logs the given player in to the given account. You need to provide the password needed to log into that account.
 
 		@param thePlayer The player to log into an account
 		@param theAccount The account to log the player into
@@ -103,7 +103,7 @@ extern class AccountFunctions {
 	static function logIn(thePlayer:Player, theAccount:Account, thePassword:String):Bool;
 
 	/**
-		This function logs the given player out of his current account.OOP Syntax Help! I don't understand this!
+		This function logs the given player out of his current account.
 
 		@param thePlayer The player to log out of his current account
 	**/
@@ -126,7 +126,7 @@ extern class AccountFunctions {
 	static function setAccountData(theAccount:Account, key:String, value:Dynamic):Bool;
 
 	/**
-		This function sets the password of the specified account.OOP Syntax Help! I don't understand this!
+		This function sets the password of the specified account.
 
 		@param theAccount the account whose password you want to set
 		@param password the password
@@ -134,7 +134,7 @@ extern class AccountFunctions {
 	static function setAccountPassword(theAccount:Account, password:String):Bool;
 
 	/**
-		This function returns a table containing all accounts with specified dataName and value (set with setAccountData).OOP Syntax Help! I don't understand this!
+		This function returns a table containing all accounts with specified dataName and value (set with setAccountData).
 
 		@param dataName The name of the data
 		@param value The value the dataName should have

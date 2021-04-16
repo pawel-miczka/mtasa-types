@@ -22,7 +22,7 @@ extern class CollisionShapeFunctions {
 	static function addColPolygonPoint(shape:ColShape, position:Vector2, ?index:Int = 0):Bool;
 
 	/**
-		This function creates a collision circle. This is a shape that has a position and a radius and infinite height that you can use to detect a player's presence. Events will be triggered when a player enters or leaves it.OOP Syntax Help! I don't understand this!
+		This function creates a collision circle. This is a shape that has a position and a radius and infinite height that you can use to detect a player's presence. Events will be triggered when a player enters or leaves it.
 
 		@param center The collision circle's center point
 		@param radius The radius of the collision circle. Can not be smaller than 0.1
@@ -30,7 +30,7 @@ extern class CollisionShapeFunctions {
 	static function createColCircle(center:Vector2, radius:Float):ColShape;
 
 	/**
-		This function creates a collision cuboid. This is a shape that has a position, width, depth and height. See Wikipedia for a definition of a cuboid. The XYZ of the col starts at the southwest bottom corner of the shape.OOP Syntax Help! I don't understand this!
+		This function creates a collision cuboid. This is a shape that has a position, width, depth and height. See Wikipedia for a definition of a cuboid. The XYZ of the col starts at the southwest bottom corner of the shape.
 
 		@param position The position of the collision cuboid's western, southern and lowest side
 		@param fWidth The collision cuboid's width
@@ -50,7 +50,7 @@ extern class CollisionShapeFunctions {
 	static function createColPolygon(center:Vector2, x1:Vector2, x2:Vector2, x3:Vector2, positions:Rest<Vector2>):ColShape;
 
 	/**
-		This function creates a collision rectangle. This is a shape that has a position and a width and a depth. See Rectangle for a definition of a rectangle. XY marks on the south west corner of the colshape.OOP Syntax Help! I don't understand this!
+		This function creates a collision rectangle. This is a shape that has a position and a width and a depth. See Rectangle for a definition of a rectangle. XY marks on the south west corner of the colshape.
 
 		@param start The Vector2 position of the collision rectangle's south west side
 		@param size The collision rectangle's width and height
@@ -58,7 +58,7 @@ extern class CollisionShapeFunctions {
 	static function createColRectangle(start:Vector2, size:Vector2):ColShape;
 
 	/**
-		This function creates a collision sphere. This is a shape that has a position and a radius. See Wikipedia for a definition of a sphere.OOP Syntax Help! I don't understand this!
+		This function creates a collision sphere. This is a shape that has a position and a radius. See Wikipedia for a definition of a sphere.
 
 		@param center The collision sphere's center point
 		@param radius The collision sphere's radius
@@ -66,7 +66,7 @@ extern class CollisionShapeFunctions {
 	static function createColSphere(center:Vector3, radius:Float):ColShape;
 
 	/**
-		This function creates a collision tube. This is a shape that has a position and a 2D (X/Y) radius and a height. See Cylinder for a definition of a tube. A tube is similar to a colcircle, except that it has a limited height, this means you can limit the distance above the position defined by (fX, fY, fZ) that the collision is detected.OOP Syntax Help! I don't understand this!
+		This function creates a collision tube. This is a shape that has a position and a 2D (X/Y) radius and a height. See Cylinder for a definition of a tube. A tube is similar to a colcircle, except that it has a limited height, this means you can limit the distance above the position defined by (fX, fY, fZ) that the collision is detected.
 
 		@param center The position of the base of the tube's center
 		@param radius The collision tube's radius
@@ -141,7 +141,7 @@ extern class CollisionShapeFunctions {
 	static function isElementWithinColShape(theElement:Element, theShape:ColShape):Bool;
 
 	/**
-		This function checks if a 3D position is inside a colshape or not.OOP Syntax Help! I don't understand this!
+		This function checks if a 3D position is inside a colshape or not.
 
 		@param theShape The colshape you're checking the position against.
 		@param position The colshape you're checking the position against.
@@ -157,7 +157,7 @@ extern class CollisionShapeFunctions {
 	static function removeColPolygonPoint(shape:ColShape, index:Int):Bool;
 
 	/**
-		OOP Syntax Help! I don't understand this!
+
 
 		@param shape The colshape polygon
 		@param floor The polygon floor (lowest Z coordinate). Parse false to reset this value to 0.
