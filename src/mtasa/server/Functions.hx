@@ -1,5 +1,6 @@
 package mtasa.server;
 
+import mtasa.shared.enums.ExplosionType;
 import mtasa.shared.enums.LatentEventStatus;
 import haxe.Constraints.Function;
 import mtasa.server.enums.ElementSyncMode;
@@ -1507,7 +1508,15 @@ extern class Functions {
 	**/
 	static function wasEventCancelled():Bool;
 
-	// [createExplosion]
+	/**
+		Creates an explosion of a certain type at a specified point in the world. If creator is specified, the explosion will occur only in its dimension.
+
+		@param position position where the explosion is created at.
+		@param theType an integer specifying the explosion type. Valid types are:
+		@param creator the explosion's simulated creator, the player responsible for it.
+	**/
+	static function createExplosion(position:Vector3, theType:ExplosionType, ?creator:Player):Bool;
+
 	// [fileClose]
 	// [fileCopy]
 	// [fileCreate]
