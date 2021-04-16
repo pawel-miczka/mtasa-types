@@ -1660,7 +1660,8 @@ extern class Functions {
 
 		@param theResource The resource from which you wish to retrieve all command handlers. Or leave it empty to retrieve command handlers of all resources.
 	**/
-	static function getCommandHandlers(?theResource:Resource):EitherType<Table<Int, String>, Table<Int, Table<Int, Dynamic>>>; // TODO this must be tested
+	static function getCommandHandlers(?theResource:Resource):EitherType<Table<Int, String>,
+		Table<Int, Table<Int, EitherType<String, Resource>>>>; // TODO this must be tested
 
 	/**
 		This function will check if a player is pressing a particular control. Controls are those that affect GTA. If you wish to get the state of another key, use bindKey and a command function.
